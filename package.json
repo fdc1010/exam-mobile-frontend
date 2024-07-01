@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "clean:android": "cd android && ./gradlew clean && cd ../",
+    "clean:ios": "cd ios && xcodebuild clean && cd ../",
+    "android:clean": "cd android && ./gradlew clean && ./gradlew cleanBuildCache && cd ..",
+    "ios:clean": "cd ios && xcodebuild clean && rm -rf ~/Library/Caches/CocoaPods && rm -rf Pods && rm -rf ~/Library/Developer/Xcode/DerivedData/* && pod cache clean --all && pod deintegrate && pod setup && pod install && cd ..",
+    "yarn:clean": "rm -rf node_modules && yarn cache clean --force && yarn install",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
@@ -82,5 +87,9 @@
   "packageManager": "yarn@3.6.4",
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "eslint --cache --fix"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/fdc1010/exam-mobile-frontend.git",
+  "author": "fdc1010 <franklincaruana@gmail.com>",
+  "license": "MIT"
 }

@@ -10,12 +10,9 @@ A React Native starter template.
 - Dark Mode
 - Navigation setup
 - Login wiring (optional)
-- Sample CRUD code (To Do App) included.
-- Sample Network Call (RTK) included.
-- Secure Token storage.
+- Secure Token storage
 - Husky
 - Environment Variables (ENV)
-- Storybook configured
 
 ## Dependencies
 
@@ -28,15 +25,6 @@ A React Native starter template.
 - Axios
 - React Native Keychain
 - Redux persist
-- Storybook
-
-## Screenshots
-
-<p float="left">
-  <img src="demo/assets/ss1.png?raw=true" width="250" />
-  &nbsp; &nbsp; &nbsp; &nbsp;
-  <img src="demo/assets/ss2.png?raw=true" width="250" />  
-</p>
 
 ## Installation
 
@@ -49,7 +37,7 @@ git clone https://github.com/fdc101082/exam-mobile-frontend.git
 ### Open project folder and install dependencies
 
 ```
-cd react-native-redux-boilerplate
+cd exam-mobile-frontend
 yarn
 or
 npm i
@@ -57,7 +45,7 @@ npm i
 
 ### Rename environment variable files
 
-Example: .env.template file to .env
+Example: .env.development file to .env
 
 ### Run the project
 
