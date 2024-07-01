@@ -7,7 +7,7 @@ import Text from './Text';
 
 interface UserItemType {
   id: string;
-  title: string;
+  firstname: string;
   done: boolean;
 }
 
@@ -40,7 +40,7 @@ const ListItem = ({item, onPress}: ListItemType): JSX.Element => {
               textDecorationLine: item.done ? 'line-through' : 'none',
             },
           ]}>
-          {item.title}
+          {item.firstname}
         </Text>
         <Icon
           name="checkbox"

@@ -1,6 +1,7 @@
-import {AxiosRequestHeaders} from 'axios';
+import { AxiosRequestHeaders} from 'axios';
 import apiClient from './api-client';
-const BASE_URL = 'http://10.0.2.2:4001';
+// const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'http://192.168.5.73:3000';
 
 const contentTypes: any = {
   json: 'application/json',
@@ -15,9 +16,10 @@ const get = (route: string) => {
 // Base function for POST requests
 const post = async (
   route: string,
-  {body, type = '', user = {}}: {body: any; type: string; user: any},
+  {body, type = '', user = {}}: {body: any; type?: string; user?: any},
 ) => {
-  let headers: AxiosRequestHeaders = {Accept: 'application/json'};
+  let headers: Pick<AxiosRequestHeaders, any> = {Accept: 'application/json'};
+ 
   if (user.token) {
     headers.Authorization = `Bearer ${user.token}`;
   }
@@ -28,7 +30,7 @@ const post = async (
     method: 'post',
     url: `${BASE_URL}/${route}`,
     headers,
-    data: body,
+    data: { email: body.username, password: body.password },
   });
 };
 

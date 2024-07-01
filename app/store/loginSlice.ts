@@ -10,21 +10,22 @@ const loginSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateUser(state, action) {
+    login(state, action) {
       const {name, username, token} = action.payload;
+      console.log(token);
       state.name = name;
       state.username = username;
-      state.token = token;
+      state.token = `${token}`;
+    },
+    logout() {
+      return initialState;
     },
     updateToken(state, action) {
       state.token = action.payload.token;
     },
-    clearUser() {
-      return initialState;
-    },
   },
 });
 
-export const {updateUser, updateToken, clearUser} = loginSlice.actions;
+export const {login, logout, updateToken } = loginSlice.actions;
 
 export default loginSlice.reducer;

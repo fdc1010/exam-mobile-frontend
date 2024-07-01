@@ -2,26 +2,26 @@ import {createSlice} from '@reduxjs/toolkit';
 
 export type User = {
   id: string;
-  title: string;
+  firstname: string;
   done: boolean;
 };
 
 export type InitialState = {
   status: 'idle' | 'loading' | 'complete';
-  entities: User[];
+  users: User[];
 };
 
 const initialState: InitialState = {
   status: 'idle',
-  entities: [
+  users: [
     {
       id: '1',
-      title: 'User 1',
+      firstname: 'User 1',
       done: false,
     },
     {
       id: '2',
-      title: 'User 2',
+      firstname: 'User 2',
       done: false,
     },
   ],
@@ -37,14 +37,14 @@ const usersSlice = createSlice({
     },
     deleteUser(state, action) {
       const userId = action.payload;
-      const user = state.entities.find(e => e.id === userId);
+      const user = state.users.find(e => e.id === userId);
       if (user) {
-        user.isDeleted = true;
+        user.done = true;
       }
     },
-    updateUser(state) {
+    updateUser(state, action) {
       const userId = action.payload;
-      const user = state.entities.find(e => e.id === userId);
+      const user = state.users.find(e => e.id === userId);
       if (user) {
         user.firstname = "test";
       }

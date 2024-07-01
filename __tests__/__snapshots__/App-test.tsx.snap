@@ -622,7 +622,7 @@ exports[`App should match snapshot correctly 1`] = `
                     }
                   }
                 >
-                  To Do
+                  Users
                 </Text>
               </View>
               <View
@@ -691,7 +691,7 @@ exports[`App should match snapshot correctly 1`] = `
       }
     >
       <View
-        accessibilityLabel="To Do, tab, 1 of 3"
+        accessibilityLabel="Users, tab, 1 of 3"
         accessibilityRole="button"
         accessibilityState={
           {

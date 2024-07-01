@@ -10,8 +10,7 @@ import {NavigationContainer} from '@react-navigation/native';
 // import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
-// import {useSelector, useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 // Hook for theme change (Light/Dark Mode)
 import {useTheme} from '../theme/useTheme';
@@ -21,13 +20,14 @@ import {getSecureValue} from '../utils/keyChain';
 // Redux slice for updating Access Token to store
 import {updateToken} from '../store/loginSlice';
 
-// import {RootState} from '../store/store';
+import {RootState} from '../store/store';
 
 // Screens
-// import Login from '../screens/auth/Login';
+import Login from '../screens/auth/Login';
 import Users from '../screens/Users';
 import NetworkExample from '../screens/NetworkExample';
 import Settings from '../screens/Settings';
+import { getCookieValue } from '../utils/cookie';
 
 // Icons for Bottom Tab Navigation
 const homeIcon = ({color}: {color: ColorValue | number}) => (
@@ -47,22 +47,23 @@ const Tab = createBottomTabNavigator();
 export default function RootNavigation() {
   const {theme} = useTheme();
   const dispatch = useDispatch();
-  // const user = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state.login);
 
   // Copy existing token from local storage to redux store
   useEffect(() => {
     async function checkIsLogined() {
       try {
-        let temp = await getSecureValue('token');
+        let temp = getCookieValue("user"); // await getSecureValue('token');
+        console.log("temp",temp);
         dispatch(updateToken({token: temp}));
       } catch (e) {}
     }
     checkIsLogined();
   }, [dispatch]);
-
+  
   return (
     <NavigationContainer>
-      {/* {user.token ? ( */}
+      {user.token ? (
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: {
@@ -82,7 +83,7 @@ export default function RootNavigation() {
           tabBarShowLabel: false,
         }}>
         <Tab.Screen
-          name="To Do"
+          name="Users"
           component={Users}
           options={{
             tabBarIcon: homeIcon,
@@ -107,14 +108,14 @@ export default function RootNavigation() {
           }}
         />
       </Tab.Navigator>
-      {/* ) : (
-        <Stack.Navigator
+      ) : (
+        <Tab.Navigator
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
-        )} */}
+          <Tab.Screen name="Login" component={Login} />
+        </Tab.Navigator>
+        )}
     </NavigationContainer>
   );
 }

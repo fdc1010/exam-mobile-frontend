@@ -7,8 +7,8 @@ describe('App', () => {
     await device.reloadReactNative();
   });
 
-  it('should have a To Do screen as home screen', async () => {
-    await waitFor(element(by.text('To Do')))
+  it('should have a Users screen as home screen', async () => {
+    await waitFor(element(by.text('Users')))
       .toBeVisible()
       .withTimeout(3000);
   });

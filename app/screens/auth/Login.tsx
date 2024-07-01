@@ -9,11 +9,12 @@ import {Input} from '../../components/Form';
 const AppIcon = require('../../assets/images//appicon.png');
 
 import {useDispatch} from 'react-redux';
-import {updateUser} from '../../store/loginSlice';
+// import {login} from '../../store/loginSlice';
 
 import {login} from '../../services';
 import {setSecureValue} from '../../utils/keyChain';
 import {transformToFormikErrors} from '../../utils/form';
+import { updateUser } from '../../store/usersSlice';
 
 interface ValuesType {
   username: string;
@@ -34,15 +35,18 @@ const Login = () => {
 
   const handleLogin = (values: ValuesType, {setErrors}: any) => {
     // Add grant_type value to obj
-    let reqObj: any = Object.assign({}, values, {grant_type: 'password'});
+    // let reqObj: any = Object.assign({}, values, {grant_type: 'password'});
     // Service request
-    login(new URLSearchParams(reqObj))
-      .then(res => {
-        if (res.data?.user?.access_token) {
+    login({...values, grant_type: 'password'})
+      .then((res) => {
+        const cookies = res.headers['set-cookie']?.toString() ?? '';
+        const match = cookies.split(";");        
+        if (match.length > 0) {
+          const token = match[0].replace("user=","");
           const {name, username, access_token, refresh_token} = res.data.user;
-          dispatch(updateUser({name, username, token: access_token}));
-          setSecureValue('token', access_token);
-          setSecureValue('refresh_token', refresh_token);
+          dispatch(updateUser({name, username, token: access_token ?? token}));
+          setSecureValue('token', access_token ?? token);
+          setSecureValue('refresh_token', refresh_token ?? token);
         }
       })
       .catch(e => {
@@ -98,7 +102,7 @@ const Login = () => {
                   />
                   <Button
                     title="Login"
-                    onPress={handleSubmit}
+                    onPress={() => handleSubmit()}
                     testID="Login.Button"
                   />
                 </>

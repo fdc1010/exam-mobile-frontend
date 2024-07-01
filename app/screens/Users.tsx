@@ -20,7 +20,7 @@ const Users = () => {
 
   const inputRef = useRef<TextInput>(null);
 
-  const userList = useSelector((state: RootState) => state.users.entities);
+  const userList = useSelector((state: RootState) => state.users.users);
   // const loadingStatus = useSelector((state) => state.users.status);
   const dispatch = useDispatch();
 
@@ -29,7 +29,7 @@ const Users = () => {
   const userAdd = () => {
     let temp = text.trim();
     if (temp !== '') {
-      dispatch(addUser({id: Date.now(), title: temp, done: false}));
+      dispatch(addUser({id: Date.now(), firstname: temp, isDeleted: false}));
     }
     inputRef.current?.clear();
   };
@@ -74,9 +74,9 @@ const Users = () => {
               },
             ]}
             onChangeText={t => setText(t)}
-            onSubmitEditing={() => addUser()}
+            onSubmitEditing={(e) => addUser(e)}
           />
-          <Button onPress={addUser} style={styles.btnAdd}>
+          <Button onPress={() => addUser({})} style={styles.btnAdd}>
             <Icon name="checkmark-sharp" size={20} color={theme.layoutBg} />
           </Button>
         </View>
